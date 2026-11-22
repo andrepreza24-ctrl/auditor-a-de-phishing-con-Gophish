@@ -1,0 +1,872 @@
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consulta Pública - Corte Suprema de Justicia</title>
+
+  <!-- Fuentes de Google (opcional: si no cargan, se usan fuentes del sistema) -->
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&amp;family=Cormorant+Garamond:wght@500;600&amp;display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ==========================================================
+       REINICIO GENERAL
+       ========================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ==========================================================
+       VISTA 1: CONSULTA PÚBLICA
+       ========================================================== */
+    #vista-consulta {
+      --color-encabezado: #24223f;
+      --color-menu: #3d3d3d;
+      --color-menu-texto: #c9d6e8;
+      --color-texto: #5c5c5c;
+      --color-enlace: #3b8dd0;
+      --color-boton: #1e73be;
+      --color-barra-lateral: #eeeeee;
+      --color-borde: #e6e6e6;
+      --ancho-maximo: 1317px;
+
+      min-height: 100vh;
+      font-family: "Titillium Web", Arial, sans-serif;
+      font-size: 16px;
+      color: var(--color-texto);
+      /* Franja gris superior que se ve detrás del encabezado */
+      background: linear-gradient(to bottom, #7a7a7a 0, #7a7a7a 320px, #ffffff 320px);
+    }
+
+    #vista-consulta a {
+      color: var(--color-enlace);
+    }
+
+    .contenedor-pagina {
+      max-width: var(--ancho-maximo);
+      margin: 0 auto;
+      background-color: #ffffff;
+    }
+
+    /* ---- Encabezado ---- */
+    .encabezado {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background-color: var(--color-encabezado);
+      padding: 20px 30px 20px 45px;
+      min-height: 160px;
+    }
+
+    .encabezado__marca {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+
+    .encabezado__logo {
+      width: 140px;
+      height: 140px;
+      flex-shrink: 0;
+    }
+
+    .encabezado__titulo {
+      display: flex;
+      flex-direction: column;
+      color: #ffffff;
+      font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    }
+
+    .encabezado__titulo-principal {
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
+
+    .encabezado__titulo-secundario {
+      font-size: 26px;
+    }
+
+    .encabezado__herramientas {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    /* ---- Buscador ---- */
+    .buscador {
+      display: flex;
+      gap: 5px;
+    }
+
+    .buscador__campo {
+      position: relative;
+    }
+
+    .buscador__icono {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      fill: #999999;
+    }
+
+    .buscador__entrada {
+      width: 200px;
+      height: 38px;
+      padding: 0 10px 0 32px;
+      border: 2px solid #dddddd;
+      background-color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .buscador__boton {
+      height: 38px;
+      padding: 0 14px;
+      border: none;
+      border-radius: 3px;
+      background-color: var(--color-boton);
+      color: #ffffff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .buscador__boton:hover {
+      background-color: #175a96;
+    }
+
+    .buscador__mensaje {
+      max-width: 260px;
+      margin-top: -14px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #ffb4b4;
+    }
+
+    /* ---- Redes sociales ---- */
+    .redes-sociales {
+      display: flex;
+      gap: 14px;
+      padding-left: 6px;
+    }
+
+    #vista-consulta .redes-sociales a {
+      color: #ffffff;
+    }
+
+    #vista-consulta .redes-sociales a:hover {
+      color: #8fc1ee;
+    }
+
+    .redes-sociales svg {
+      display: block;
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* ---- Menú principal ---- */
+    .menu-principal {
+      background-color: var(--color-menu);
+      padding: 0 20px;
+    }
+
+    .menu-principal__lista {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    #vista-consulta .menu-principal__lista a {
+      display: block;
+      padding: 16px 15px 17px;
+      color: var(--color-menu-texto);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 15px;
+    }
+
+    #vista-consulta .menu-principal__lista a:hover {
+      color: #ffffff;
+    }
+
+    /* Flechita de los elementos con submenú */
+    .con-submenu > a::after {
+      content: "";
+      display: inline-block;
+      margin-left: 6px;
+      vertical-align: middle;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--color-menu-texto);
+    }
+
+    /* ---- Cuerpo: contenido + barra lateral ---- */
+    .cuerpo {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .contenido {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contenido__titulo {
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--color-borde);
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #444444;
+    }
+
+    .contenido__articulo {
+      padding: 30px;
+    }
+
+    .contenido__articulo p {
+      margin-bottom: 22px;
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .banner-consulta {
+      width: 891px;
+      max-width: 100%;
+      height: 38px;
+      margin: 0 0 8px 10px;
+      display: flex;
+      align-items: flex-end;
+      background: linear-gradient(100deg,
+        #ffffff 0%,
+        #d8eef7 25%,
+        #8fcbe3 45%,
+        #d2ebf6 70%,
+        #ffffff 100%);
+    }
+
+    .banner-consulta__texto {
+      padding: 0 0 4px 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      color: #111111;
+    }
+
+    .lista-enlaces {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 38px;
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .lista-enlaces li::before {
+      content: "– ";
+    }
+
+    /* ---- Barra lateral ---- */
+    .barra-lateral {
+      width: 347px;
+      flex-shrink: 0;
+      padding: 20px;
+      background-color: var(--color-barra-lateral);
+    }
+
+    .barra-lateral__titulo {
+      margin-bottom: 22px;
+      font-size: 15px;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: #444444;
+    }
+
+    .publicaciones__item {
+      position: relative;
+      padding: 0 0 14px 18px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #dddddd;
+    }
+
+    .publicaciones__item:last-child {
+      border-bottom: none;
+    }
+
+    .publicaciones__item::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 0;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background-color: #b5b5b5;
+    }
+
+    #vista-consulta .publicaciones__enlace {
+      display: block;
+      line-height: 1.55;
+      font-size: 16px;
+      color: #666666;
+      text-decoration: none;
+    }
+
+    #vista-consulta .publicaciones__enlace:hover {
+      color: var(--color-enlace);
+    }
+
+    .publicaciones__fecha {
+      display: block;
+      margin-top: 6px;
+      font-size: 15px;
+      color: #777777;
+    }
+
+    /* ==========================================================
+       VISTA 2: LOGIN
+       ========================================================== */
+    #vista-login {
+      --color-principal: #1414a6;
+      --color-boton-servicio: #4343b5;
+      --color-texto-oscuro: #00004d;
+      --color-enlace: #1a1aa6;
+      --color-borde: #dcdcdc;
+      --color-placeholder: #b5b5b5;
+
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--color-texto-oscuro);
+      background-color: #ffffff;
+    }
+
+    .pagina-login {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ---- Panel izquierdo (bienvenida) ---- */
+    .panel-bienvenida {
+      flex: 0 0 50.6%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px 60px;
+      background-color: var(--color-principal);
+      color: #ffffff;
+    }
+
+    .panel-bienvenida__marca {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: #d4d4d4;
+    }
+
+    .panel-bienvenida__mensaje {
+      text-align: center;
+      max-width: 520px;
+    }
+
+    .panel-bienvenida__titulo {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .panel-bienvenida__titulo span {
+      display: block;
+      font-size: 16px;
+    }
+
+    .servicios {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .servicios__item {
+      padding: 9px 24px;
+      border-radius: 3px;
+      background-color: var(--color-boton-servicio);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* ---- Panel derecho (formulario) ---- */
+    .panel-formulario {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 14px 30px 40px;
+    }
+
+    .formulario {
+      width: 358px;
+      max-width: 100%;
+    }
+
+    .formulario__etiqueta {
+      font-size: 17px;
+    }
+
+    .formulario__etiqueta--azul {
+      color: var(--color-enlace);
+      margin-bottom: 14px;
+    }
+
+    .formulario__etiqueta--datos {
+      margin: 44px 0 14px;
+    }
+
+    .tipo-documento {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tipo-documento__boton {
+      padding: 8px 31px;
+      border: 1px solid var(--color-borde);
+      border-radius: 4px;
+      background-color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .tipo-documento__boton--activo {
+      border-color: var(--color-principal);
+      background-color: var(--color-principal);
+      color: #ffffff;
+    }
+
+    .campo {
+      display: block;
+      width: 100%;
+      height: 52px;
+      margin-bottom: 4px;
+      padding: 0 20px;
+      border: 1px solid var(--color-borde);
+      border-radius: 4px;
+      background-color: #ffffff;
+      font-family: inherit;
+      font-size: 17px;
+      color: var(--color-texto-oscuro);
+    }
+
+    .campo::placeholder {
+      color: var(--color-placeholder);
+    }
+
+    .campo:focus {
+      outline: 2px solid var(--color-principal);
+      outline-offset: -1px;
+    }
+
+    .campo-contrasena {
+      position: relative;
+    }
+
+    .campo-contrasena .campo {
+      padding-right: 55px;
+    }
+
+    .campo-contrasena__ojo {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-62%);
+      border: none;
+      background: none;
+      color: var(--color-texto-oscuro);
+      cursor: pointer;
+    }
+
+    .enlaces-ayuda {
+      margin: 48px 0 40px;
+    }
+
+    .enlaces-ayuda li {
+      margin-bottom: 7px;
+      font-size: 16px;
+      line-height: 1.3;
+    }
+
+    #vista-login .enlaces-ayuda a,
+    #vista-login .registro a {
+      color: var(--color-enlace);
+      text-decoration: underline;
+    }
+
+    .boton-ingresar {
+      display: block;
+      width: 100%;
+      height: 55px;
+      border: none;
+      border-radius: 4px;
+      background-color: var(--color-principal);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .boton-ingresar:hover {
+      background-color: #0e0e80;
+    }
+
+    .registro {
+      margin-top: 36px;
+      text-align: center;
+    }
+
+    .registro__pregunta {
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .registro__pregunta a {
+      margin-left: 4px;
+    }
+
+    .registro__ayuda {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================
+       ADAPTABLE (TABLETAS Y CELULARES)
+       ========================================================== */
+    @media (max-width: 900px) {
+      .encabezado {
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .encabezado__marca {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+
+      .encabezado__herramientas {
+        margin-top: 20px;
+      }
+
+      .cuerpo {
+        flex-direction: column;
+      }
+
+      .barra-lateral {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .pagina-login {
+        flex-direction: column;
+      }
+
+      .panel-bienvenida {
+        flex: none;
+        padding: 50px 20px 40px;
+      }
+
+      .panel-bienvenida__marca {
+        flex: none;
+        margin-bottom: 40px;
+      }
+
+      .panel-formulario {
+        padding: 30px 20px 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================
+       VISTA 1: CONSULTA PÚBLICA
+       ========================================================== -->
+  <div id="vista-consulta">
+    <div class="contenedor-pagina">
+
+      <!-- ENCABEZADO -->
+      <header class="encabezado">
+        <div class="encabezado__marca">
+
+          <!-- Logo dibujado con SVG (puedes cambiarlo por tu imagen real) -->
+          <svg class="encabezado__logo" viewBox="0 0 140 140" role="img" aria-label="Logo Órgano Judicial">
+            <circle cx="70" cy="70" r="66" fill="#2a2748" stroke="#d9b36c" stroke-width="3"></circle>
+            <circle cx="70" cy="70" r="46" fill="#1c1a35" stroke="#d9b36c" stroke-width="2"></circle>
+            <path d="M70 40v52M52 52h36M52 52l-8 18h16zM88 52l-8 18h16zM58 92h24" stroke="#d9b36c" stroke-width="3" fill="none" stroke-linejoin="round"></path>
+            <text x="70" y="26" text-anchor="middle" font-size="9" fill="#d9b36c" font-family="Georgia, serif">ÓRGANO</text>
+            <text x="70" y="124" text-anchor="middle" font-size="9" fill="#d9b36c" font-family="Georgia, serif">JUDICIAL</text>
+          </svg>
+
+          <div class="encabezado__titulo">
+            <span class="encabezado__titulo-principal">CORTE SUPREMA DE JUSTICIA</span>
+            <span class="encabezado__titulo-secundario">República de El Salvador</span>
+          </div>
+        </div>
+
+        <div class="encabezado__herramientas">
+          <form class="buscador" id="formulario-buscador" action="" method="get">
+            <div class="buscador__campo">
+              <svg class="buscador__icono" viewBox="0 0 512 512" aria-hidden="true">
+                <path d="M416 208c0 46-15 88-40 123l127 127c12 12 12 33 0 45s-33 12-45 0L331 376c-35 25-77 40-123 40C93 416 0 323 0 208S93 0 208 0s208 93 208 208zM208 352a144 144 0 1 0 0-288 144 144 0 0 0 0 288z"></path>
+              </svg>
+              <input type="search" name="correlativo" id="correlativo" class="buscador__entrada" placeholder="Ingresa el correlativo" inputmode="numeric" autocomplete="off" required=""/>
+            </div>
+            <button type="submit" class="buscador__boton">Buscar</button>
+          </form>
+
+          <p class="buscador__mensaje" id="mensaje-buscador" role="alert" hidden=""></p>
+
+          <ul class="redes-sociales">
+            <li>
+              <a href="#" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"></path></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.5 5.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#" aria-label="Twitter">
+                <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+              </a>
+            </li>
+            <li>
+              <a href="#" aria-label="YouTube">
+                <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.500 0-9.400.5A3 3 0 0 0 .5 6.200C0 8.100 0 12 0 12s0 3.900.5 5.800a3 3 0 0 0 2.100 2.100c1.900.5 9.400.5 9.400.5s7.500 0 9.400-.5a3 3 0 0 0 2.100-2.100c.5-1.900.5-5.800.5-5.800s0-3.900-.5-5.800zM9.600 15.600V8.400l6.200 3.600z"></path></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </header>
+
+      <!-- MENÚ DE NAVEGACIÓN -->
+      <nav class="menu-principal">
+        <ul class="menu-principal__lista">
+          <li><a href="#">Inicio</a></li>
+          <li class="con-submenu"><a href="#">Historia</a></li>
+          <li class="con-submenu"><a href="#">Organización</a></li>
+          <li class="con-submenu"><a href="#">Corte Plena</a></li>
+          <li class="con-submenu"><a href="#">Salas</a></li>
+          <li class="con-submenu"><a href="#">Educación Judicial</a></li>
+          <li class="con-submenu"><a href="#">Formularios</a></li>
+          <li class="con-submenu"><a href="#">Transformación Digital</a></li>
+          <li class="con-submenu"><a href="#">Avisos</a></li>
+          <li class="con-submenu"><a href="#">Enlaces</a></li>
+        </ul>
+      </nav>
+
+      <!-- CUERPO: CONTENIDO + BARRA LATERAL -->
+      <div class="cuerpo">
+
+        <main class="contenido">
+          <h1 class="contenido__titulo">Consulta Pública</h1>
+
+          <article class="contenido__articulo">
+            <div class="banner-consulta">
+              <span class="banner-consulta__texto">Consulta Pública</span>
+            </div>
+
+            <p><a href="#">Acceso a Bases de Datos de la CSJ</a></p>
+
+            <p>Directorio Temático de bases de datos y recursos de acceso del Órgano Judicial visibles en internet.</p>
+
+            <p>Para localizar un recurso podemos navegar por la clasificación temática o interrogar a sus formularios de búsqueda, obteniendo como resultado una ficha con su descripción, enlace y contenido mismo.</p>
+
+            <p><a href="#">Sala de lo Constitucional</a></p>
+
+            <ul class="lista-enlaces">
+              <li><a href="#">Amparos</a></li>
+              <li><a href="#">Habeas Corpus</a></li>
+              <li><a href="#">Inconstitucionalidades</a></li>
+            </ul>
+          </article>
+        </main>
+
+        <aside class="barra-lateral">
+          <h2 class="barra-lateral__titulo">Últimas publicaciones</h2>
+
+          <ul class="publicaciones">
+            <li class="publicaciones__item">
+              <a href="#" class="publicaciones__enlace">Video 6</a>
+              <time class="publicaciones__fecha">20 noviembre, 2026</time>
+            </li>
+            <li class="publicaciones__item">
+              <a href="#" class="publicaciones__enlace">Boletín de Medio Ambiente – 20 de noviembre</a>
+              <time class="publicaciones__fecha">20 noviembre, 2026</time>
+            </li>
+            <li class="publicaciones__item">
+              <a href="#" class="publicaciones__enlace">Suscriben Acuerdo de Colaboración para impulsar iniciativas de formación y prevención social</a>
+              <time class="publicaciones__fecha">19 noviembre, 2026</time>
+            </li>
+            <li class="publicaciones__item">
+              <a href="#" class="publicaciones__enlace">Boletín Unidad de Género – Cuando la violencia…</a>
+              <time class="publicaciones__fecha">19 noviembre, 2026</time>
+            </li>
+          </ul>
+        </aside>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       VISTA 2: LOGIN (oculta al inicio)
+       ========================================================== -->
+  <div id="vista-login" hidden="">
+    <div class="pagina-login">
+
+      <!-- Panel izquierdo: bienvenida -->
+      <section class="panel-bienvenida">
+        <h1 class="panel-bienvenida__marca">login</h1>
+
+        <div class="panel-bienvenida__mensaje">
+          <p class="panel-bienvenida__titulo">
+            Bienvenidos al portal del Gobierno de El Salvador,
+            <span>donde podrás crear tu perfil digital. Tu usuario te dará acceso a:</span>
+          </p>
+
+          <ul class="servicios">
+            <li class="servicios__item">Trámites en línea</li>
+            <li class="servicios__item">Pagos en línea</li>
+            <li class="servicios__item">Portales virtuales</li>
+            <li class="servicios__item">Credenciales seguras</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Panel derecho: formulario -->
+      <section class="panel-formulario">
+        <form class="formulario" action="" method="post">
+
+          <p class="formulario__etiqueta formulario__etiqueta--azul">Elige cómo iniciar sesión</p>
+
+          <div class="tipo-documento">
+            <button type="button" class="tipo-documento__boton tipo-documento__boton--activo">DUI</button>
+          </div>
+
+          <p class="formulario__etiqueta formulario__etiqueta--datos">Ingresa tus datos</p>
+
+          <input type="text" name="documento" class="campo" placeholder="número de documento" autocomplete="username" required=""/>
+
+          <div class="campo-contrasena">
+            <input type="password" name="password" id="contrasena" class="campo" placeholder="contraseña" autocomplete="current-password" required=""/>
+
+            <button type="button" class="campo-contrasena__ojo" id="boton-ojo" aria-label="Mostrar contraseña">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+
+          <ul class="enlaces-ayuda">
+            <li><a href="#">¿Olvidaste tu contraseña?</a></li>
+            <li><a href="#">¿Olvidaste tu correo?</a></li>
+            <li><a href="#">¿Olvidaste tu número de dui?</a></li>
+          </ul>
+
+          <button type="submit" class="boton-ingresar">Iniciar sesión</button>
+
+          <div class="registro">
+            <p class="registro__pregunta">
+              ¿Aún no tienes cuenta?
+              <a href="#">Regístrate aquí</a>
+            </p>
+            <p class="registro__ayuda">
+              Si tienes problemas para crear tu cuenta puedes comunicarte al correo:
+              <strong>contacto@login.gob.sv</strong>
+            </p>
+          </div>
+
+        </form>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // ==========================================================
+    // CAMBIO ENTRE VISTAS
+    // ==========================================================
+    const vistaConsulta = document.getElementById("vista-consulta");
+    const vistaLogin = document.getElementById("vista-login");
+
+    function mostrarLogin() {
+      vistaConsulta.hidden = true;
+      vistaLogin.hidden = false;
+      document.title = "Iniciar sesión - Portal del Gobierno de El Salvador";
+      window.scrollTo(0, 0);
+    }
+
+    // ==========================================================
+    // BUSCADOR DE CORRELATIVO
+    // ==========================================================
+    // Correlativo de ejemplo que permite pasar al login
+    const CORRELATIVO_VALIDO = "2026045873";
+
+    const formularioBuscador = document.getElementById("formulario-buscador");
+    const campoCorrelativo = document.getElementById("correlativo");
+    const mensajeBuscador = document.getElementById("mensaje-buscador");
+
+    formularioBuscador.addEventListener("submit", (evento) => {
+      // Evitamos que el formulario recargue la página
+      evento.preventDefault();
+
+      const correlativoIngresado = campoCorrelativo.value.trim();
+
+      if (correlativoIngresado === CORRELATIVO_VALIDO) {
+        // Correlativo correcto: mostramos la página del login
+        mostrarLogin();
+      } else {
+        // Correlativo incorrecto: mostramos el error
+        mensajeBuscador.textContent = "Correlativo no encontrado. Verifica el número e inténtalo de nuevo.";
+        mensajeBuscador.hidden = false;
+      }
+    });
+
+    // Al volver a escribir, ocultamos el mensaje de error
+    campoCorrelativo.addEventListener("input", () => {
+      mensajeBuscador.hidden = true;
+    });
+
+    // ==========================================================
+    // LOGIN: MOSTRAR / OCULTAR CONTRASEÑA
+    // ==========================================================
+    const campoContrasena = document.getElementById("contrasena");
+    const botonOjo = document.getElementById("boton-ojo");
+
+    botonOjo.addEventListener("click", () => {
+      const estaOculta = campoContrasena.type === "password";
+
+      campoContrasena.type = estaOculta ? "text" : "password";
+      botonOjo.setAttribute(
+        "aria-label",
+        estaOculta ? "Ocultar contraseña" : "Mostrar contraseña"
+      );
+    });
+  </script>
+
+</body></html>
